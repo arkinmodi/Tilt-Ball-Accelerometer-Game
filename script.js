@@ -47,7 +47,23 @@ window.onload = function () {
 
   // Initialize the game
   let score = 0;
-  let startBallX = Math.floor(Math.random() * canvas.width);
-  let startBallY = Math.floor(Math.random() * canvas.height);
-  let player = new Ball(startBallX, startBallY, 0, 0, 0, 0, 25, "green");
+  let playerRadius = 25;
+
+  // Number between 25 and (canvas width or height - 25)
+  // Makes sure player starts inbounds
+  let startBallX =
+    Math.floor(Math.random() * (canvas.width - playerRadius)) + playerRadius;
+  let startBallY =
+    Math.floor(Math.random() * (canvas.height - playerRadius)) + playerRadius;
+
+  let player = new Ball(
+    startBallX,
+    startBallY,
+    0,
+    0,
+    0,
+    0,
+    playerRadius,
+    "green"
+  );
 };
