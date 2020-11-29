@@ -52,9 +52,11 @@ window.onload = function () {
   // Number between 25 and (canvas width or height - 25)
   // Makes sure player starts inbounds
   let startBallX =
-    Math.floor(Math.random() * (canvas.width - playerRadius)) + playerRadius;
+    Math.floor(Math.random() * (canvas.width - playerRadius * 2)) +
+    playerRadius;
   let startBallY =
-    Math.floor(Math.random() * (canvas.height - playerRadius)) + playerRadius;
+    Math.floor(Math.random() * (canvas.height - playerRadius * 2)) +
+    playerRadius;
 
   let player = new Ball(
     startBallX,
@@ -66,4 +68,8 @@ window.onload = function () {
     playerRadius,
     "green"
   );
+
+  setInterval(function () {
+    player.draw();
+  }, 30);
 };
