@@ -1,7 +1,6 @@
 window.onload = function () {
   let canvas = document.getElementById("canvas");
   let context = canvas.getContext("2d");
-  let score = 0;
 
   class Ball {
     constructor(x, y, vx, vy, bvx, bvy, radius, color) {
@@ -45,4 +44,10 @@ window.onload = function () {
       }
     }
   }
+
+  // Initialize the game
+  let score = 0;
+  let startBallX = Math.floor(Math.random() * canvas.width);
+  let startBallY = Math.floor(Math.random() * canvas.height);
+  let player = new Ball(startBallX, startBallY, 0, 0, 0, 0, 25, "green");
 };
