@@ -1,23 +1,22 @@
 window.onload = function () {
+  // Get canvas
   let canvas = document.getElementById("canvas");
   let context = canvas.getContext("2d");
 
   class Ball {
-    constructor(x, y, vx, vy, bvx, bvy, radius, color) {
+    constructor(x, y, vx, vy, radius, colour) {
       this.x = x; // x position
       this.y = y; // y position
       this.vx = vx; // x velocity
       this.vy = vy; // y velocity
-      this.bvx = bvx; // x velocity after bounce = vx * bvx
-      this.bvy = bvy; // y velocity after bounce = vy * bvy
       this.radius = radius;
-      this.color = color;
+      this.colour = colour;
     }
 
     // Draw ball to canvas
     draw() {
       context.beginPath();
-      context.fillStyle = this.color;
+      context.fillStyle = this.colour;
       context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
       context.fill();
     }
@@ -27,27 +26,28 @@ window.onload = function () {
       this.x = this.x + this.vx;
       this.y = this.y + this.vy;
     }
+  }
 
-    // Check if ball is within bounds
-    boundary_check() {
-      if (
-        this.y + this.radius + this.vy > canvas.height ||
-        this.y - this.radius + this.vy < 0
-      ) {
-        this.vy = this.bvy * this.vy;
-      }
-      if (
-        this.x + this.radius + this.vx > canvas.width ||
-        this.x - this.radius + this.vx < 0
-      ) {
-        this.vx = this.bvx * this.vx;
-      }
+  class Square {
+    constructor(x, y, length, colour) {
+      this.x = x; // x position
+      this.y = y; // y position
+      this.length = length;
+      this.colour = colour;
+    }
+
+    draw() {
+      context.beginPath();
+      context.fillStyle = this.colour;
+      context.rect(this.x, this.y, this.length, this.length);
+      context.fill();
     }
   }
 
   // Initialize the game
   let score = 0;
   let playerRadius = 25;
+  let holeLength = 50;
 
   // Number between 25 and (canvas width or height - 25)
   // Makes sure player starts inbounds
@@ -58,18 +58,27 @@ window.onload = function () {
     Math.floor(Math.random() * (canvas.height - playerRadius * 2)) +
     playerRadius;
 
-  let player = new Ball(
-    startBallX,
-    startBallY,
-    0,
-    0,
-    0,
-    0,
-    playerRadius,
-    "green"
-  );
+  // Start hole at ball and keep changing until hole is not on ball
+  // Square (x, y) is at top left corner
+  let startHoleX = startBallX;
+  let startHoleY = startBallY;
+  while (
+    Math.abs(startHoleX - startBallX) < holeLength + playerRadius &&
+    Math.abs(startHoleY - startBallY) < holeLength + playerRadius
+  ) {
+    // Number between 0 and (canvas width or height - holeLength)
+    startHoleX = Math.floor(Math.random() * (canvas.width - holeLength + 1));
+    startHoleY = Math.floor(Math.random() * (canvas.height - holeLength + 1));
+  }
+
+  // Game objects
+  let player = new Ball(startBallX, startBallY, 0, 0, playerRadius, "green");
+  let hole = new Square(startHoleX, startHoleY, holeLength, "black");
+
+  console.log(startHoleX, startHoleY, startBallX, startBallY);
 
   setInterval(function () {
+    hole.draw();
     player.draw();
   }, 30);
 };
