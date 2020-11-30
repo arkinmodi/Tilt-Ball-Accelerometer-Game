@@ -163,7 +163,6 @@ window.onload = function () {
     if (isGoal(player, hole)) {
       score++;
       newGame();
-      console.log(score);
     }
   }
 
@@ -171,7 +170,9 @@ window.onload = function () {
     context.clearRect(0, 0, canvas.width, canvas.height);
     hole.draw();
     player.draw();
-    document.getElementById("score").innerHTML = "Score: " + score;
+    context.font = "25px sans-serif";
+    context.fillStyle = "black"
+    context.fillText("Score: " + score, 5, 25);
   }
 
   // Current device orientation
