@@ -21,20 +21,27 @@ window.onload = function () {
 
     // Set new position
     move(vx, vy) {
-      if (this.x + vx >= 0 && this.x + vx <= canvas.width) {
+      // First check if new position is within bounds
+      if (
+        this.x + vx >= this.radius &&
+        this.x + vx <= canvas.width - this.radius
+      ) {
         this.x = this.x + vx;
-      } else if (this.x + vx < 0) {
-        this.x = 0;
-      } else if (this.x + vx > canvas.width) {
-        this.x = canvas.width;
+      } else if (this.x + vx < this.radius) {
+        this.x = this.radius;
+      } else if (this.x + vx > canvas.width - this.radius) {
+        this.x = canvas.width - this.radius;
       }
 
-      if (this.y + vy >= 0 && this.y + vy <= canvas.height) {
+      if (
+        this.y + vy >= this.radius &&
+        this.y + vy <= canvas.height - this.radius
+      ) {
         this.y = this.y + vy;
-      } else if (this.y + vy < 0) {
-        this.y = 0;
-      } else if (this.y + vy > canvas.height) {
-        this.y = canvas.height;
+      } else if (this.y + vy < this.radius) {
+        this.y = this.radius;
+      } else if (this.y + vy > canvas.height - this.radius) {
+        this.y = canvas.height - this.radius;
       }
     }
   }
