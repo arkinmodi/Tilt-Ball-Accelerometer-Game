@@ -171,8 +171,9 @@ window.onload = function () {
     hole.draw();
     player.draw();
     context.font = "25px sans-serif";
-    context.fillStyle = "black"
+    context.fillStyle = "black";
     context.fillText("Score: " + score, 5, 25);
+    speedMultiplier = document.getElementById("speed").value;
   }
 
   // Current device orientation
@@ -183,7 +184,7 @@ window.onload = function () {
   let score = 0;
   let playerRadius = 25;
   let holeLength = 50;
-  let speedMultiplier = 1;
+  let speedMultiplier = document.getElementById("speed").value;
   let player;
   let hole;
 
