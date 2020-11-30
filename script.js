@@ -4,11 +4,9 @@ window.onload = function () {
   let context = canvas.getContext("2d");
 
   class Ball {
-    constructor(x, y, vx, vy, radius, colour) {
+    constructor(x, y, radius, colour) {
       this.x = x; // x position
       this.y = y; // y position
-      this.vx = vx; // x velocity
-      this.vy = vy; // y velocity
       this.radius = radius;
       this.colour = colour;
     }
@@ -22,9 +20,16 @@ window.onload = function () {
     }
 
     // Set new position
-    move() {
-      this.x = this.x + this.vx;
-      this.y = this.y + this.vy;
+    move(vx, vy) {
+      if (this.x + vx >= 0 && this.x + vx < canvas.width) {
+        this.x = this.x + vx;
+      }
+
+      if (this.y + vy >= 0 && this.y + vy < canvas.height) {
+        this.y = this.y + vy;
+      }
+
+      console.log(this.x, this.y);
     }
   }
 
@@ -48,6 +53,7 @@ window.onload = function () {
   let score = 0;
   let playerRadius = 25;
   let holeLength = 50;
+  let speedMultiplier = 1;
 
   // Number between 25 and (canvas width or height - 25)
   // Makes sure player starts inbounds
@@ -72,13 +78,12 @@ window.onload = function () {
   }
 
   // Game objects
-  let player = new Ball(startBallX, startBallY, 0, 0, playerRadius, "green");
+  let player = new Ball(startBallX, startBallY, playerRadius, "green");
   let hole = new Square(startHoleX, startHoleY, holeLength, "black");
 
-  console.log(startHoleX, startHoleY, startBallX, startBallY);
+  function gameLogic() {}
 
-  setInterval(function () {
-    hole.draw();
-    player.draw();
-  }, 30);
+  function updateFrame() {}
+
+  setInterval(function () {}, 30);
 };
