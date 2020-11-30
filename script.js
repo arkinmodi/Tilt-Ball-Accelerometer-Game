@@ -21,15 +21,21 @@ window.onload = function () {
 
     // Set new position
     move(vx, vy) {
-      if (this.x + vx >= 0 && this.x + vx < canvas.width) {
+      if (this.x + vx >= 0 && this.x + vx <= canvas.width) {
         this.x = this.x + vx;
+      } else if (this.x + vx < 0) {
+        this.x = 0;
+      } else if (this.x + vx > canvas.width) {
+        this.x = canvas.width;
       }
 
-      if (this.y + vy >= 0 && this.y + vy < canvas.height) {
+      if (this.y + vy >= 0 && this.y + vy <= canvas.height) {
         this.y = this.y + vy;
+      } else if (this.y + vy < 0) {
+        this.y = 0;
+      } else if (this.y + vy > canvas.height) {
+        this.y = canvas.height;
       }
-
-      console.log(this.x, this.y);
     }
   }
 
@@ -54,6 +60,10 @@ window.onload = function () {
   let playerRadius = 25;
   let holeLength = 50;
   let speedMultiplier = 1;
+
+  // Current device orientation
+  let beta = 0;
+  let gamma = 0;
 
   // Number between 25 and (canvas width or height - 25)
   // Makes sure player starts inbounds
@@ -81,9 +91,23 @@ window.onload = function () {
   let player = new Ball(startBallX, startBallY, playerRadius, "green");
   let hole = new Square(startHoleX, startHoleY, holeLength, "black");
 
-  function gameLogic() {}
+  function gameLogic() {
+    // Update position based on device orientation
+    window.ondeviceorientation = function (event) {
+      beta = event.beta;
+      gamma = event.gamma;
+    };
+    player.move(gamma * speedMultiplier, beta * speedMultiplier);
+  }
 
-  function updateFrame() {}
+  function updateFrame() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    hole.draw();
+    player.draw();
+  }
 
-  setInterval(function () {}, 30);
+  setInterval(function () {
+    gameLogic();
+    updateFrame();
+  }, 30);
 };
