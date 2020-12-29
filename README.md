@@ -4,7 +4,7 @@ Assignment 7 for SFWRENG 4HC3 - Human Computer Interfaces
 
 ## Overview
 
-This is an accelerometer based game where the objective is move the player (i.e., the green ball) into the goal (i.e., the black square). This game utilizes the HTML Canvas and the device's accelerometer. The player's movement speed is based the intensity of the tilt and movement is bounded to the canvas area. There is a running count of how many times the player has won.
+This is an accelerometer based game where the objective is to move the player (i.e., the green ball) into the goal (i.e., the black square). This game utilizes the HTML Canvas and the device's accelerometer. The player's movement speed is based on the intensity of the tilt and movement is bounded to the canvas area. There is a running count of how many times the player has won.
 
 ## How To Run
 
